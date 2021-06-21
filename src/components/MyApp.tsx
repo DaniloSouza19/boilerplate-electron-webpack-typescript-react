@@ -1,8 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {
-  Container,
-  Grid
-} from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { IApiWindow } from '../types/IApiWindow';
 import { Message } from './Message';
 import { Footer } from './Footer';
@@ -14,7 +11,7 @@ declare const { dgsApi }: IApiWindow;
 
 interface IAlertMessage {
   message: string;
-  type: 'success' | 'info' | 'warning' | 'error'
+  type: 'success' | 'info' | 'warning' | 'error';
 }
 
 const MyApp: React.FC = () => {
@@ -22,45 +19,40 @@ const MyApp: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState<IAlertMessage>();
   const [messageAlertIsOpen, setMessageAlertIsOpen] = useState(false);
 
-  const handleOpenMessage = useCallback(({ message, type }: IAlertMessage) => {
-    setAlertMessage({
-      message: message,
-      type: type
-    });
+  const handleOpenMessage = useCallback(
+    ({ message, type }: IAlertMessage) => {
+      setAlertMessage({
+        message: message,
+        type: type,
+      });
 
-    setMessageAlertIsOpen(true)
+      setMessageAlertIsOpen(true);
 
-    setTimeout(() => {
-      setMessageAlertIsOpen(false)
-    }, 3000)
-
-  }, [setAlertMessage, setMessageAlertIsOpen]);
+      setTimeout(() => {
+        setMessageAlertIsOpen(false);
+      }, 3000);
+    },
+    [setAlertMessage, setMessageAlertIsOpen]
+  );
 
   return (
-    <Grid container
-      // direction="column"
-      // justify="center"
-      // alignItems="center"
-      spacing={5}
-    >
+    <Grid container justify="center" alignItems="center" spacing={5}>
       <Grid item>
         <Container>
           <h1>{dgsApi.sendHello()}</h1>
-          {messageAlertIsOpen &&
-            <Message
-              isOpen={messageAlertIsOpen}
-              type={alertMessage.type}
-            >
+
+          {messageAlertIsOpen && (
+            <Message isOpen={messageAlertIsOpen} type={alertMessage.type}>
               {alertMessage.message}
             </Message>
-          }
+          )}
         </Container>
       </Grid>
-      <Grid item xs={12} >
+      <Grid item xs={12}>
         <Footer />
       </Grid>
     </Grid>
   );
-}
+};
 
-export { MyApp }
+export { MyApp };
