@@ -2,11 +2,12 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const dotenv = require('dotenv').config({
-  path: path.join(__dirname, '.env'),
-});
+const DotEnv = require('dotenv-webpack');
 
 module.exports = [
+  new DotEnv({
+    systemvars: true,
+  }),
   new ForkTsCheckerWebpackPlugin(),
   new CopyPlugin({
     patterns: [
